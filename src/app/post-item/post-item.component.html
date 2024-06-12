@@ -1,11 +1,10 @@
-<div class="pt-4 p-2" *ngIf="post">
-    <h3>{{ post.title }}</h3>
-    <p>{{ post.content }}</p>
-    <div>
-      <span class="badge rounded-pill text-bg-light">
-        {{ post.category.name }}
-      </span>
-      <span>{{ post.createdDate | date: "medium" }}</span>
+<div class="card mb-3" *ngIf="post">
+  <div class="card-body">
+    <h5 class="card-title">{{ post.title }}</h5>
+    <p class="card-text">{{ post.content }}</p>
+    <div class="d-flex justify-content-between">
+      <span class="badge bg-primary">{{ post.category.name }}</span>
+      <small class="text-muted">{{ post.createdDate | date: 'medium' }}</small>
     </div>
   </div>
-  
+</div>
