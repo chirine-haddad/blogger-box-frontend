@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TopBarComponent } from './component/top-bar/top-bar.component';
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: '', component: PostListComponent },
   { path: 'create-post', component: PostCreateComponent } // Ajout de la route pour PostCreateComponent
 ];
+
 
 @NgModule({
   declarations: [
@@ -36,7 +38,7 @@ const routes: Routes = [
   ],
   providers: [
     PostService,
-    CategoryService // Assurez-vous que CategoryService est inclus dans les providers
+    CategoryService 
   ],
   bootstrap: [AppComponent]
 })

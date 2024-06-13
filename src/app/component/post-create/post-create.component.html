@@ -1,4 +1,4 @@
-<!-- src/app/post-create/post-create.component.html -->
+<!-- src/app/component/post-create/post-create.component.html -->
 <div class="container mt-4">
   <h2>Create a New Post</h2>
   <form [formGroup]="postForm" (ngSubmit)="onSubmit()">
@@ -26,7 +26,7 @@
         [ngClass]="{ 'is-invalid': postForm.get('category')?.invalid && (postForm.get('category')?.dirty || postForm.get('category')?.touched) }"
       >
         <option value="" disabled>Sélectionnez une catégorie</option>
-        <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+        <option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</option>
       </select>
       <div *ngIf="postForm.get('category')?.invalid && (postForm.get('category')?.dirty || postForm.get('category')?.touched)" class="invalid-feedback">
         La catégorie est requise.
@@ -46,6 +46,9 @@
         <div *ngIf="postForm.get('content')?.errors?.['maxlength']">Le contenu ne peut pas dépasser 2500 caractères.</div>
       </div>
     </div>
-    <button type="submit" class="btn btn-primary mt-3" [disabled]="postForm.invalid">Soumettre</button>
+    <div class="d-flex justify-content-between mt-3">
+      <button type="submit" class="btn btn-primary" [disabled]="postForm.invalid">Soumettre</button>
+      <button type="button" class="btn btn-secondary" (click)="onCancel()">Annuler</button>
+    </div>
   </form>
 </div>

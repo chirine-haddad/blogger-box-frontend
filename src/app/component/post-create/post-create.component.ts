@@ -1,11 +1,11 @@
+// src/app/component/post-create/post-create.component.ts
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
-import { CategoryService } from '../../services/category.service';
+import { CategoryService, Category } from '../../services/category.service';
 import { PostService } from '../../services/post.service';
 import { Post } from '../../data/post';
-
 
 @Component({
   selector: 'app-post-create',
@@ -13,8 +13,8 @@ import { Post } from '../../data/post';
   styleUrls: ['./post-create.component.css']
 })
 export class PostCreateComponent implements OnInit {
-  postForm!: FormGroup; // Note: Use '!' to tell TypeScript that this property will be initialized in ngOnInit
-  categories: string[] = [];
+  postForm!: FormGroup;
+  categories: Category[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -31,12 +31,11 @@ export class PostCreateComponent implements OnInit {
     });
 
     this.categoryService.getCategories().subscribe(
-      (categories: string[]) => {
+      (categories: Category[]) => {
         this.categories = categories;
       },
       (error) => {
         console.error('Failed to fetch categories', error);
-        // Handle error if necessary
       }
     );
   }
@@ -69,7 +68,7 @@ export class PostCreateComponent implements OnInit {
             this.router.navigate(['/']);
           });
         },
-        (error) => {
+        (error  ) => {
           console.error('Failed to create post', error);
           Swal.fire({
             icon: 'error',
@@ -84,5 +83,9 @@ export class PostCreateComponent implements OnInit {
         }
       );
     }
+  }
+
+  onCancel(): void {
+    this.router.navigate(['/']);
   }
 }

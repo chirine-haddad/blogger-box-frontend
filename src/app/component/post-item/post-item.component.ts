@@ -7,5 +7,6 @@ import { Post } from '../../data/post';
   styleUrls: ['./post-item.component.css']
 })
 export class PostItemComponent {
-  @Input() post: Post | undefined;
+  @Input() 
+  post ! : Post ;
 }

@@ -8,7 +8,7 @@ export interface Post {
     category:Category;
   }
 
-
+/*
   export  const POSTS = [
     {
       id: 'c9f3bcb3-dd91-4d79-88d8-5b9d99d8cd20',
@@ -176,4 +176,4 @@ export interface Post {
         name: 'Children',
       },
     },
-  ]
+  ]*/

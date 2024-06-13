@@ -4,7 +4,7 @@ import { PostListComponent } from './component/post-list/post-list.component';
 import { PostCreateComponent } from './component/post-create/post-create.component';
 
 const routes: Routes = [
-  { path: '', component: PostListComponent },
+  { path: 'home', component: PostListComponent },
   { path: 'create-post', component: PostCreateComponent }
 ];
 

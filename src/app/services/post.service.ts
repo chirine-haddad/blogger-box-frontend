@@ -1,23 +1,26 @@
-// src/app/post.service.ts
+// post.service.ts
+
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Post } from '../data/post';
-import { environment } from '../../environments/environment';
+import { Post } from '../data/post'; // Assurez-vous d'importer correctement votre modèle Post
 
 @Injectable({
   providedIn: 'root'
 })
 export class PostService {
-  private apiUrl = environment.apiUrl;
+  private apiUrl = 'http://localhost:1234/v1/posts'; // Remplacez par votre URL API
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getPosts(): Observable<Post[]> {
-    return this.http.get<Post[]>(`${this.apiUrl}/posts`);
+    console.log('Fetching posts...'); // Ajoutez un log pour savoir quand la méthode est appelée
+    return this.http.get<Post[]>(this.apiUrl);
   }
 
-  createPost(post: Post): Observable<Post> {
-    return this.http.post<Post>(`${this.apiUrl}/posts`, post);
+  createPost(newPost: Post): Observable<any> {
+    return this.http.post(this.apiUrl, newPost);
   }
 }
+
+
