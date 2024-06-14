@@ -44,7 +44,6 @@ export class PostCreateComponent implements OnInit {
 
   onSubmit(): void {
     if (this.postForm.invalid) {
- 
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
@@ -56,12 +55,14 @@ export class PostCreateComponent implements OnInit {
         timerProgressBar: true
       });
     } else {
+      const newPost: Post = {
+        ...this.postForm.value,
+        createdDate: new Date() 
+      };
   
-      const newPost: Post = this.postForm.value;
       this.postService.createPost(newPost).subscribe(
         (createdPost: Post) => {
-          
-          this.createdPost = createdPost; 
+          this.createdPost = createdPost;
           Swal.fire({
             icon: 'success',
             title: 'Post Submitted Successfully',
@@ -75,7 +76,6 @@ export class PostCreateComponent implements OnInit {
           });
         },
         (error) => {
-          
           console.error('Failed to create post', error);
           Swal.fire({
             icon: 'error',
@@ -91,6 +91,8 @@ export class PostCreateComponent implements OnInit {
       );
     }
   }
+  
+  
 
   onCancel(): void {
    
