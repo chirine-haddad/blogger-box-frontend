@@ -1,23 +1,17 @@
-// category.service.ts
-
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Category } from '../data/category'; 
+import { Category } from '../data/category';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CategoryService {
   private apiUrl = 'http://localhost:1234/v1/categories'; 
-  
 
   constructor(private http: HttpClient) {}
 
   getCategories(): Observable<Category[]> {
-    console.log('Fetching categories...'); 
     return this.http.get<Category[]>(this.apiUrl);
   }
 }
-
-export { Category }; 

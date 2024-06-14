@@ -1,12 +1,11 @@
-// src/app/component/post-create/post-create.component.ts
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
-import { CategoryService, Category } from '../../services/category.service';
+import { CategoryService} from '../../services/category.service';
 import { PostService } from '../../services/post.service';
 import { Post } from '../../data/post';
-
+import { Category  } from '../../data/category';
 @Component({
   selector: 'app-post-create',
   templateUrl: './post-create.component.html',
@@ -15,6 +14,7 @@ import { Post } from '../../data/post';
 export class PostCreateComponent implements OnInit {
   postForm!: FormGroup;
   categories: Category[] = [];
+  createdPost: Post | null = null; 
 
   constructor(
     private fb: FormBuilder,
@@ -24,12 +24,14 @@ export class PostCreateComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    
     this.postForm = this.fb.group({
       title: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(150)]],
       category: ['', Validators.required],
       content: ['', [Validators.required, Validators.maxLength(2500)]]
     });
 
+  
     this.categoryService.getCategories().subscribe(
       (categories: Category[]) => {
         this.categories = categories;
@@ -42,6 +44,7 @@ export class PostCreateComponent implements OnInit {
 
   onSubmit(): void {
     if (this.postForm.invalid) {
+ 
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
@@ -53,9 +56,12 @@ export class PostCreateComponent implements OnInit {
         timerProgressBar: true
       });
     } else {
+  
       const newPost: Post = this.postForm.value;
       this.postService.createPost(newPost).subscribe(
-        () => {
+        (createdPost: Post) => {
+          
+          this.createdPost = createdPost; 
           Swal.fire({
             icon: 'success',
             title: 'Post Submitted Successfully',
@@ -68,7 +74,8 @@ export class PostCreateComponent implements OnInit {
             this.router.navigate(['/']);
           });
         },
-        (error  ) => {
+        (error) => {
+          
           console.error('Failed to create post', error);
           Swal.fire({
             icon: 'error',
@@ -86,6 +93,7 @@ export class PostCreateComponent implements OnInit {
   }
 
   onCancel(): void {
+   
     this.router.navigate(['/']);
   }
 }
